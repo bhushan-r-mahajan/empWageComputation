@@ -1,4 +1,3 @@
-
 echo "Welcome"
 
 wagePerHr=20
@@ -11,31 +10,29 @@ partTime=2
 workingDays=0
 workingHours=0
 
+function workHours(){
+ case $1 in
+
+   $fullTime)
+      empHours=8
+      ;;
+   $partTime)
+      empHours=4
+      ;;
+   *)
+      empHours=0
+      ;;
+   esac
+echo $empHours
+}
+
 while [[ $workingDays -lt $totalWorkingDays && $workingHours -lt $maxWorkingHours ]]
 do
 	((workingDays++))
-	attendance=$((RANDOM%3))
-
-	case $attendance in
-
-	$fullTime)
-		echo $attendance
-		echo "Employee is Full time"
-		empHours=8
-		;;
-	$partTime)
-		echo $attendance
-		echo "Employee is Part time"
-		empHours=4
-		;;
-	*)
-		echo $attendance
-   	echo "Employee is Absent"
-		empHours=0
-		;;
-	esac
+	empHours="$( workHours $((RANDOM%3)))"
 	workingHours=$(( $workingHours + $empHours ))
 done
+
 monthlyWage=$(($workingHours * $wagePerHr))
 echo "Monthly Wage="$monthlyWage
 echo "Total time worked="$workingHours" Hrs"
