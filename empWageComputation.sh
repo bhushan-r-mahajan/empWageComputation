@@ -2,21 +2,20 @@ echo "Welcome"
 
 attendance=$((RANDOM %3 ))
 wagePerHr=20
-fullTime=8
-partTime=4
+fullTime=1
+partTime=2
 
-if [ $attendance -eq 0 ]
-then
-	echo "Employee is Absent"
-elif [ $attendance -eq 1 ]
-then
+case $attendance in
+
+$fullTime)
 	echo "Employee is Full time"
-	dailyWage=$(($wagePerHr * $fullTime ))
-	echo "Employee wage is "$dailyWage
-elif [ $attendance -eq 2 ]
-then
+	empHours=8;;
+$partTime)
 	echo "Employee is Part time"
-	dailyWage=$(( $wagePerHr * $partTime ))
-	echo "Employee wage is "$dailyWage
-fi
-
+	empHours=4;;
+*)
+   echo "Employee is Absent"
+	empHours=0;;
+esac
+dailyWage=$(( $wagePerHr * $empHours ))
+echo "Wage="$dailyWage
