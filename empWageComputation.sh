@@ -1,17 +1,19 @@
 
-
 echo "Welcome"
 
 wagePerHr=20
 totalWorkingDays=20
-monthlyWage=0
+maxWorkingHours=100
+
+
 fullTime=1
 partTime=2
-absent=0
+workingDays=0
+workingHours=0
 
-for (( day=1; day<=$totalWorkingDays; day++ ))
+while [[ $workingDays -lt $totalWorkingDays && $workingHours -lt $maxWorkingHours ]]
 do
-
+	((workingDays++))
 	attendance=$((RANDOM%3))
 
 	case $attendance in
@@ -26,14 +28,14 @@ do
 		echo "Employee is Part time"
 		empHours=4
 		;;
-	$absent)
+	*)
 		echo $attendance
    	echo "Employee is Absent"
 		empHours=0
 		;;
 	esac
-	dailyWage=$(( $wagePerHr * $empHours ))
-	monthlyWage=$(($monthlyWage + $dailyWage))
+	workingHours=$(( $workingHours + $empHours ))
 done
-
+monthlyWage=$(($workingHours * $wagePerHr))
 echo "Monthly Wage="$monthlyWage
+echo "Total time worked="$workingHours" Hrs"
