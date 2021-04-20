@@ -9,6 +9,8 @@ partTime=2
 workingDays=0
 workingHours=0
 
+declare -A empDailyWage
+
 function workHours(){
 
 	case $1 in
@@ -39,10 +41,11 @@ do
 	((workingDays++))
 	empHours="$( workHours $((RANDOM%3)))"
 	workingHours=$(( $workingHours + $empHours ))
-	empDailyWage[$workingDays]="$( wagearray $empHours)"
+	empDailyWage["Day-"$workingDays]="$( wagearray $empHours)"
 done
 
 monthlyWage=$(($workingHours * $wagePerHour))
 echo "Monthly Wage="$monthlyWage
 echo "Total time worked="$workingHours" Hrs"
+echo ${!empDailyWage[@]}
 echo ${empDailyWage[@]}
